@@ -7,6 +7,8 @@ interface NumberInputProps {
   onChange: (newValue: number) => void;
   prefix?: string;
   suffix?: string;
+  min?: number;
+  max?: number;
 }
 
 export const NumberInput = ({
@@ -16,6 +18,8 @@ export const NumberInput = ({
   onChange,
   prefix,
   suffix,
+  min,
+  max,
 }: NumberInputProps) => {
   return (
     <div className="input">
@@ -28,7 +32,8 @@ export const NumberInput = ({
           type="number"
           value={value}
           onChange={(e) => onChange(e.target.valueAsNumber)}
-          min={0}
+          min={min}
+          max={max}
         />
         {suffix && <p>{suffix}</p>}
       </div>

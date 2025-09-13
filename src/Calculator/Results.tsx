@@ -6,7 +6,13 @@ interface ResultsProps {
 }
 
 export const Results = ({ results }: ResultsProps) => {
-  const { totalValue } = results;
+  const { endDate, resultArray } = results;
+  const lastResult = resultArray[resultArray.length - 1];
 
-  return <div className="results">Total Value: {totalValue}</div>;
+  return (
+    <div className="results">
+      <p>End date: {endDate.substring(0, 10)}</p>
+      <p>Total interest: {lastResult.totalInterest.toFixed(2)}</p>
+    </div>
+  );
 };

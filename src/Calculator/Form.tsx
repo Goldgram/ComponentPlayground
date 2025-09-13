@@ -14,15 +14,15 @@ export const Form = ({ form, setForm, onSubmit }: FormProps) => {
   const {
     investmentType,
     investmentLength,
+    investmentPeriod,
     initialValue,
-
+    // startDate,
     interestRate,
     interestPeriod,
-    interestDay,
-
+    // interestDay,
     contributionValue,
     contributionPeriod,
-    contributionDay,
+    // contributionDay,
   } = form;
 
   const partialUpdate = (partialForm: Partial<FormType>) => {
@@ -47,26 +47,34 @@ export const Form = ({ form, setForm, onSubmit }: FormProps) => {
           label="Investment length"
           value={investmentLength}
           onChange={(newValue) => partialUpdate({ investmentLength: newValue })}
-          suffix="year"
+          min={1}
+        />
+        <DropdownInput<Period>
+          id="investment-period"
+          label="Investment period"
+          options={PERIOD_OPTIONS}
+          value={investmentPeriod}
+          onChange={(newValue) => partialUpdate({ investmentPeriod: newValue })}
         />
         <NumberInput
-          id="monthlyAddition"
+          id="initial-value"
           label="Initial value"
           value={initialValue}
           onChange={(newValue) => partialUpdate({ initialValue: newValue })}
           prefix="€"
+          min={0}
         />
         <div className="spacer" />
         <NumberInput
           id="interest-rate"
-          label="Interest rate"
+          label="Interest rate (annually)"
           value={interestRate}
           onChange={(newValue) => partialUpdate({ interestRate: newValue })}
           suffix="%"
         />
         <DropdownInput<Period>
           id="interest-period"
-          label="Interest period"
+          label="Interest calculation period"
           options={PERIOD_OPTIONS}
           value={interestPeriod}
           onChange={(newValue) => partialUpdate({ interestPeriod: newValue })}
@@ -81,6 +89,7 @@ export const Form = ({ form, setForm, onSubmit }: FormProps) => {
             partialUpdate({ contributionValue: newValue })
           }
           prefix="€"
+          min={0}
         />
         <DropdownInput<Period>
           id="contribution-period"

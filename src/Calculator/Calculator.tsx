@@ -3,7 +3,7 @@ import { Form } from "./Form";
 import "./Calculator.css";
 import { DEFAULT_STATE } from "./constants";
 import { FormType, State } from "./types";
-import { calculateResults } from "./functions";
+import { calculateResults, isValidForm } from "./functions";
 import { Results } from "./Results";
 
 export const Calculator = () => {
@@ -23,8 +23,13 @@ export const Calculator = () => {
   };
 
   const calculate = () => {
-    const newResults = calculateResults(state.form);
-    updateState({ results: newResults });
+    if (!isValidForm(state.form)) {
+      alert("form is invalid");
+    } else {
+      const newResults = calculateResults(state.form);
+      updateState({ results: newResults });
+      // console.log("newResults", newResults);
+    }
   };
 
   return (
